@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHAOS POUCH — Mystery Flavour Challenge</title>
+  <style>
+    :root{
+      --purple:#6b2cff;
+      --purple-dark:#34126f;
+      --purple-light:#c9a7ff;
+      --cream:#fff7ef;
+      --ink:#17121f;
+      --pink:#ff4fc3;
+      --lime:#b7ff4a;
+      --white:#ffffff;
+      --shadow:0 20px 60px rgba(62,24,122,.25);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--ink);
+      background:linear-gradient(180deg,#f7f0ff 0%,#fff 40%,#f9f3ff 100%);
+      overflow-x:hidden;
+    }
+    a{text-decoration:none;color:inherit}
+    .wrap{width:min(1180px,92%);margin:auto}
+    .pill{
+      display:inline-flex;align-items:center;gap:.5rem;
+      border:2px solid rgba(255,255,255,.45);
+      background:rgba(255,255,255,.18);
+      color:#fff;padding:.55rem .9rem;border-radius:999px;
+      font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;
+      backdrop-filter:blur(10px)
+    }
+    .nav{
+      position:absolute;top:0;left:0;right:0;z-index:20;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:24px 4vw;color:#fff
+    }
+    .brand{font-weight:1000;letter-spacing:.06em;font-size:1.1rem}
+    .navlinks{display:flex;gap:1.4rem;font-weight:800;font-size:.92rem}
+    .cart{
+      border:none;background:#fff;color:var(--purple-dark);font-weight:900;
+      padding:.8rem 1rem;border-radius:999px;cursor:pointer
+    }
+    .hero{
+      min-height:100vh;
+      position:relative;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at 20% 25%, rgba(255,79,195,.6), transparent 26%),
+        radial-gradient(circle at 78% 30%, rgba(183,255,74,.25), transparent 24%),
+        linear-gradient(135deg,#4d16aa 0%,#7b2dff 55%,#5513b2 100%);
+      color:#fff;
+      isolation:isolate;
+      padding:110px 0 60px
+    }
+    .hero:before,.hero:after{
+      content:"";position:absolute;border-radius:50%;filter:blur(2px);z-index:-1
+    }
+    .hero:before{
+      width:340px;height:340px;background:rgba(255,255,255,.08);
+      left:-120px;bottom:-80px
+    }
+    .hero:after{
+      width:270px;height:270px;background:rgba(255,255,255,.06);
+      right:-70px;top:100px
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.05fr .9fr;gap:5rem;align-items:center
+    }
+    .eyebrow{font-weight:950;text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;color:#dfccff}
+    h1{
+      margin:.6rem 0 1rem;font-size:clamp(3.4rem,8vw,7.4rem);
+      line-height:.82;letter-spacing:-.06em;text-transform:uppercase
+    }
+    .hero-copy{font-size:1.12rem;line-height:1.65;max-width:610px;color:#efe7ff}
+    .cta-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:1rem 1.3rem;border-radius:14px;font-weight:950;
+      border:2px solid transparent;transition:.2s transform,.2s background;
+      cursor:pointer
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:#fff;color:var(--purple-dark)}
+    .btn-outline{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+    .product-stage{
+      min-height:520px;display:grid;place-items:center;position:relative
+    }
+    .burst{
+      position:absolute;width:470px;height:470px;border-radius:50%;
+      background:repeating-conic-gradient(from 0deg,#ff4fc3 0 9deg,#7f37ff 9deg 18deg);
+      opacity:.5;filter:saturate(1.1)
+    }
+    .pack{
+      width:min(330px,72vw);aspect-ratio:.72;position:relative;z-index:3;
+      border-radius:38px;
+      background:
+        linear-gradient(155deg,rgba(255,255,255,.25),transparent 30%),
+        linear-gradient(145deg,#4b0e9c,#8a32ff 62%,#ae74ff);
+      box-shadow:0 35px 80px rgba(26,0,76,.45);
+      border:4px solid rgba(255,255,255,.55);
+      transform:rotate(5deg);
+      display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;padding:2rem
+    }
+    .pack:before{
+      content:"MYSTERY FLAVOURS";position:absolute;top:20px;
+      font-size:.72rem;letter-spacing:.18em;font-weight:1000;color:#e9dcff
+    }
+    .pack .logo{font-size:3.2rem;line-height:.8;font-weight:1000;letter-spacing:-.07em}
+    .pack .tag{margin-top:1rem;font-weight:900;color:#f3e9ff}
+    .seal{
+      position:absolute;right:-30px;bottom:40px;width:105px;height:105px;
+      border-radius:50%;background:var(--lime);color:#26143d;
+      display:grid;place-items:center;text-align:center;font-size:.82rem;
+      font-weight:1000;transform:rotate(-12deg);border:4px solid #fff
+    }
+    .floating{
+      position:absolute;z-index:2;font-weight:1000;padding:.7rem 1rem;
+      border-radius:999px;background:#fff;color:var(--purple-dark);
+      box-shadow:var(--shadow);font-size:.84rem
+    }
+    .f1{left:0;top:25%}.f2{right:-10px;top:14%}.f3{right:0;bottom:10%}.f4{left:5%;bottom:7%}
+    .marquee{
+      overflow:hidden;background:var(--lime);color:#26143d;
+      padding:.85rem 0;font-weight:1000;text-transform:uppercase;letter-spacing:.08em
+    }
+    .marquee-track{white-space:nowrap;animation:move 18s linear infinite}
+    @keyframes move{to{transform:translateX(-50%)}}
+    section{padding:90px 0}
+    .section-head{max-width:760px;margin-bottom:42px}
+    .kicker{color:var(--purple);font-weight:1000;text-transform:uppercase;letter-spacing:.14em;font-size:.78rem}
+    h2{font-size:clamp(2.2rem,5vw,4.5rem);line-height:.95;letter-spacing:-.05em;margin:.4rem 0 1rem}
+    .muted{color:#6d6476;line-height:1.7}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .card{
+      border-radius:28px;padding:1.6rem;background:#fff;border:1px solid #eadfff;
+      box-shadow:0 12px 40px rgba(78,38,132,.08)
+    }
+    .emoji{font-size:2.3rem}
+    .card h3{font-size:1.3rem;margin:.8rem 0 .4rem}
+    .duo{
+      display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:1.25rem
+    }
+    .flavour{
+      border-radius:28px;padding:2rem;min-height:300px;display:flex;
+      flex-direction:column;justify-content:flex-end;overflow:hidden;position:relative
+    }
+    .good{background:linear-gradient(145deg,#d8ff9a,#f8ffe9)}
+    .awful{background:linear-gradient(145deg,#ffc2eb,#fff1fb)}
+    .bubble{
+      position:absolute;width:170px;height:170px;border-radius:50%;right:-25px;top:-30px;
+      background:rgba(255,255,255,.55)
+    }
+    .flavour b{font-size:2.1rem;letter-spacing:-.04em}
+    .buy{
+      background:var(--purple-dark);color:#fff;border-radius:34px;
+      display:grid;grid-template-columns:1fr .75fr;overflow:hidden
+    }
+    .buy-copy{padding:3.2rem}
+    .buy-side{
+      background:linear-gradient(145deg,#7b2dff,#a35cff);
+      padding:3rem;display:flex;flex-direction:column;justify-content:center
+    }
+    .price{font-size:3.6rem;font-weight:1000;letter-spacing:-.06em}
+    .small{font-size:.88rem;color:#ddd1f5}
+    .buy .btn{margin-top:1.2rem;width:100%;background:var(--lime);color:#26143d}
+    footer{padding:45px 0;background:#160a2d;color:#d9ccef}
+    .footer-grid{display:flex;justify-content:space-between;gap:2rem;align-items:center}
+    .age-note{font-size:.86rem;max-width:640px;line-height:1.5;color:#a997c9}
+    @media(max-width:850px){
+      .navlinks{display:none}
+      .hero-grid,.buy,.cards,.duo{grid-template-columns:1fr}
+      .hero-grid{gap:1rem}
+      .product-stage{min-height:460px}
+      .f1,.f4{left:-10px}.f2,.f3{right:-10px}
+      .footer-grid{align-items:flex-start;flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="brand">CHAOS POUCH®</div>
+    <div class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#flavours">Flavours</a>
+      <a href="#buy">Shop</a>
+    </div>
+    <button class="cart" onclick="addToCart()">Bag <span id="cartCount">0</span></button>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="pill">😈 Sweet or savage? You won't know.</div>
+        <div class="eyebrow" style="margin-top:1.2rem">The mystery flavour challenge</div>
+        <h1>Prank.<br>Play.<br>Repeat.</h1>
+        <p class="hero-copy">
+          One pack. A mix of genuinely delicious and hilariously awful novelty candy flavours.
+          Share it with friends, film the reactions, and see who gets lucky.
+        </p>
+        <div class="cta-row">
+          <a href="#buy" class="btn btn-primary">Get the pack</a>
+          <a href="#how" class="btn btn-outline">See how it works</a>
+        </div>
+      </div>
+
+      <div class="product-stage">
+        <div class="burst"></div>
+        <div class="floating f1">🍓 strawberry?</div>
+        <div class="floating f2">🧅 onion?!</div>
+        <div class="floating f3">🍇 grape?</div>
+        <div class="floating f4">🧦 old sock?!</div>
+        <div class="pack">
+          <div class="logo">CHAOS<br>POUCH</div>
+          <div class="tag">Good flavours. Bad flavours.<br>Zero clues.</div>
+          <div class="seal">PRANK<br>YOUR<br>FRIENDS</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="marquee">
+    <div class="marquee-track">
+      PRANK YOUR FRIENDS • PICK A POUCH • DON'T TRUST THE COLOUR • CAPTURE THE REACTION •
+      PRANK YOUR FRIENDS • PICK A POUCH • DON'T TRUST THE COLOUR • CAPTURE THE REACTION •
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">How it works</div>
+        <h2>The pack that turns snack time into a challenge.</h2>
+        <p class="muted">Each pack mixes fun candy pieces with lookalike flavours. The whole point is that you cannot tell which one you picked until you taste it.</p>
+      </div>
+      <div class="cards">
+        <div class="card"><div class="emoji">🤏</div><h3>1. Pick</h3><p class="muted">Grab one without inspecting it. No cheating.</p></div>
+        <div class="card"><div class="emoji">😬</div><h3>2. Taste</h3><p class="muted">It could be amazing. It could be a terrible life choice.</p></div>
+        <div class="card"><div class="emoji">📱</div><h3>3. React</h3><p class="muted">Prank friends, challenge the group, and capture the moment.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flavours" style="padding-top:10px">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="kicker">The flavour roulette</div>
+        <h2>Same look. Very different ending.</h2>
+      </div>
+      <div class="duo">
+        <div class="flavour good">
+          <div class="bubble"></div>
+          <span class="kicker">Could be</span>
+          <b>Berry Blast 🍓</b>
+          <p>Sweet, fruity, victory.</p>
+        </div>
+        <div class="flavour awful">
+          <div class="bubble"></div>
+          <span class="kicker">Or maybe</span>
+          <b>Bin Juice 🤢</b>
+          <p>A novelty flavour designed for maximum reaction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="buy">
+    <div class="wrap">
+      <div class="buy">
+        <div class="buy-copy">
+          <div class="pill" style="background:rgba(255,255,255,.1)">Flagship product</div>
+          <h2 style="margin-top:1rem">The Original Chaos Pack</h2>
+          <p style="color:#d9ccef;line-height:1.7">
+            A single mystery pack filled with a chaotic mix of good and awful novelty candy flavours.
+            Built for parties, mates, dares and reaction videos.
+          </p>
+          <p><strong>Includes:</strong> 20 mystery pieces • mixed flavour roulette • resealable pouch</p>
+        </div>
+        <div class="buy-side">
+          <div class="small">ONE FLAGSHIP PACK</div>
+          <div class="price">£8.99</div>
+          <div class="small">Free shipping over £25</div>
+          <button class="btn" onclick="addToCart()">Add to bag</button>
+          <div id="cartMessage" class="small" style="margin-top:.8rem"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div class="brand">CHAOS POUCH®</div>
+      <div class="age-note">
+        Concept storefront for a non-nicotine novelty candy product. Product names, claims, pricing and policies are placeholders and should be checked before launch.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let count = 0;
+    function addToCart(){
+      count += 1;
+      document.getElementById('cartCount').textContent = count;
+      document.getElementById('cartMessage').textContent = "Added to bag — chaos incoming.";
+    }
+  </script>
+</body>
+</html>
