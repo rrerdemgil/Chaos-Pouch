@@ -1,5 +1,4 @@
-<style>
-    :root{
+  :root{
       --purple:#6b2cff;
       --purple-dark:#34126f;
       --purple-light:#c9a7ff;
@@ -176,4 +175,3 @@
       .f1,.f4{left:-10px}.f2,.f3{right:-10px}
       .footer-grid{align-items:flex-start;flex-direction:column}
     }
-  </style>
